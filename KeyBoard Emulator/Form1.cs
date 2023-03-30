@@ -2,6 +2,7 @@
 using NHotkey.WindowsForms;
 using System;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -17,7 +18,6 @@ namespace KeyBoard_Emulator
         public Form1()
         {
             InitializeComponent();
-            comboBox1.SelectedIndex = 1;
             MessageBox.Show("Хоткеи:\nctrl+alt+r - начать эмуляцию набора текста;\nctrl+alt+d - экстренное завершение программы", "Хоткеи");
         }
 
@@ -25,7 +25,7 @@ namespace KeyBoard_Emulator
         {
             if (richTextBox1.Text.Length == 0)
             {
-                MessageBox.Show("Нет текста для эмуляции", "Нет текста");
+                MessageBox.Show("Нет текста для эмуляции", "Нет текста", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             HotkeyManager.Current.AddOrReplace("Start Emulation", Keys.Control | Keys.Alt | Keys.R, OnHotkeyEmulation);
@@ -51,7 +51,7 @@ namespace KeyBoard_Emulator
         {
             HotkeyManager.Current.Remove("Start Emulation");
             HotkeyManager.Current.Remove("Stop Emulation");
-            MessageBox.Show("Change Da World… My Final Message. Goodbye");
+            MessageBox.Show("Change Da World… My Final Message. Goodbye", "Goodbye");
         }
 
         private void emergency_exit(object sender, EventArgs e)
@@ -73,7 +73,7 @@ namespace KeyBoard_Emulator
             catch
             {
                 label1.Text = "Эмуляция: завершена с ошибкой";
-                MessageBox.Show("Прозошла ошибка и текст был проэмулирован неполностью или не проэмулирован вовсе.", "Ошибка");
+                MessageBox.Show("Прозошла ошибка и текст был проэмулирован неполностью или не проэмулирован вовсе.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
             finally
@@ -87,19 +87,24 @@ namespace KeyBoard_Emulator
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "TXT files|*.txt";
-            if (openFileDialog.ShowDialog(this) != DialogResult.OK)
+            DialogResult dialogResult = openFileDialog.ShowDialog(this);
+            if (dialogResult == DialogResult.Cancel)
             {
-                MessageBox.Show("Не смог получить файл, попробуй еще раз.", "Чет пошло не так");
+                return;
+            }
+            if (dialogResult != DialogResult.OK)
+            {
+                MessageBox.Show("Не смог получить файл, попробуй еще раз.", "Чет пошло не так", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             TextFromTextFile = File.ReadAllText(openFileDialog.FileName);
-            MessageBox.Show("Файл загружен и программа готова к эмуляции.", "Файл загружен");
             richTextBox1.Text = TextFromTextFile;
+            MessageBox.Show("Файл загружен и программа готова к эмуляции.", "Файл загружен");
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void SpeedList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboBox1.SelectedIndex)
+            switch (SpeedList.SelectedIndex)
             {
                 case 0:
                     minTimeType = 31;
@@ -122,5 +127,7 @@ namespace KeyBoard_Emulator
                     break;
             }
         }
+
+        private string EncodingText(string TextToEncode) => Encoding.GetEncoding(EncodingList.SelectedText).GetBytes(TextToEncode).ToString();
     }
 }

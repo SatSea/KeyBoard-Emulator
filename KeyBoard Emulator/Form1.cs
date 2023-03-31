@@ -128,13 +128,7 @@ namespace KeyBoard_Emulator
             }
         }
 
-        private string EncodingText(string TextToEncode)
-        {
-            string name = EncodingList.SelectedItem.ToString();
-            byte[] bytes = Encoding.Default.GetBytes(TextToEncode);
-            Encoding encoding = Encoding.GetEncoding(name);
-            return encoding.GetString(bytes);
-        }
+        private string EncodingText(string TextToEncode) => Encoding.GetEncoding(EncodingList.SelectedItem.ToString()).GetString(Encoding.Default.GetBytes(TextToEncode));
 
         private void EncodingList_SelectedIndexChanged(object sender, EventArgs e)
         {

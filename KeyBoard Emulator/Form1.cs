@@ -97,7 +97,7 @@ namespace KeyBoard_Emulator
                 MessageBox.Show("Не смог получить файл, попробуй еще раз.", "Чет пошло не так", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            TextFromTextFile = File.ReadAllText(openFileDialog.FileName);
+            TextFromTextFile = EncodingText(File.ReadAllText(openFileDialog.FileName));
             richTextBox1.Text = TextFromTextFile;
             MessageBox.Show("Файл загружен и программа готова к эмуляции.", "Файл загружен");
         }
@@ -128,6 +128,20 @@ namespace KeyBoard_Emulator
             }
         }
 
-        private string EncodingText(string TextToEncode) => Encoding.GetEncoding(EncodingList.SelectedText).GetBytes(TextToEncode).ToString();
+        private string EncodingText(string TextToEncode)
+        {
+            string name = EncodingList.SelectedItem.ToString();
+            byte[] bytes = Encoding.Default.GetBytes(TextToEncode);
+            Encoding encoding = Encoding.GetEncoding(name);
+            return encoding.GetString(bytes);
+        }
+
+        private void EncodingList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TextFromTextFile))
+            {
+                TextFromTextFile = EncodingText(TextFromTextFile);
+            }
+        }
     }
 }

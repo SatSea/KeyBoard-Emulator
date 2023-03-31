@@ -150,8 +150,9 @@
             this.EncodingList.Location = new System.Drawing.Point(273, 43);
             this.EncodingList.Name = "EncodingList";
             this.EncodingList.Size = new System.Drawing.Size(115, 21);
-            this.EncodingList.TabIndex = 10; 
+            this.EncodingList.TabIndex = 10;
             this.EncodingList.SelectedIndex = 1;
+            this.EncodingList.SelectedIndexChanged += new System.EventHandler(this.EncodingList_SelectedIndexChanged);
             // 
             // Form1
             // 

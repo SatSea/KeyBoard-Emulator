@@ -66,7 +66,30 @@ namespace KeyBoard_Emulator
                 Random random = new Random();
                 foreach (char letter in TextFromTextFile)
                 {
-                    SendKeys.SendWait(letter.ToString());
+                    string keys = "";
+                    switch (letter)
+                    {
+                        case '\r':
+                            break; // Нам не нужен возрат коретки
+                        case '+':
+                        case '^':
+                        case '%':
+                        case '~':
+                        case '(':
+                        case ')':
+                        case '[':
+                        case ']':
+                        case '{':
+                        case '}':
+                            keys += '{';
+                            keys += letter;
+                            keys += '}';
+                            break;
+                        default:
+                            keys += letter;
+                            break;
+                    }
+                    SendKeys.Send(keys);
                     Thread.Sleep(random.Next(minTimeType, maxTimeType));
                 }
             }

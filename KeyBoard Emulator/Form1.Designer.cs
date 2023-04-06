@@ -39,12 +39,14 @@
             this.SpeedList = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.EncodingList = new System.Windows.Forms.ComboBox();
+            this.OCR_btn = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.button1.Location = new System.Drawing.Point(125, 259);
+            this.button1.Location = new System.Drawing.Point(125, 322);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(152, 23);
             this.button1.TabIndex = 1;
@@ -56,7 +58,7 @@
             // 
             this.richTextBox1.DetectUrls = false;
             this.richTextBox1.EnableAutoDragDrop = true;
-            this.richTextBox1.Location = new System.Drawing.Point(12, 99);
+            this.richTextBox1.Location = new System.Drawing.Point(12, 162);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
@@ -68,11 +70,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label2.Location = new System.Drawing.Point(12, 79);
+            this.label2.Location = new System.Drawing.Point(12, 142);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 13);
+            this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Текст из файла";
+            this.label2.Text = "Текст";
             // 
             // loadTextFromFile
             // 
@@ -97,7 +99,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.label1.Location = new System.Drawing.Point(9, 298);
+            this.label1.Location = new System.Drawing.Point(9, 361);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(166, 17);
             this.label1.TabIndex = 3;
@@ -106,7 +108,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(144, 25);
+            this.label4.Location = new System.Drawing.Point(6, 88);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 13);
             this.label4.TabIndex = 7;
@@ -121,17 +123,16 @@
             "средне",
             "быстро",
             "очень быстро (опасно)"});
-            this.SpeedList.Location = new System.Drawing.Point(143, 43);
+            this.SpeedList.Location = new System.Drawing.Point(15, 106);
             this.SpeedList.Name = "SpeedList";
             this.SpeedList.Size = new System.Drawing.Size(109, 21);
             this.SpeedList.TabIndex = 8;
             this.SpeedList.SelectedIndexChanged += new System.EventHandler(this.SpeedList_SelectedIndexChanged);
-            this.SpeedList.SelectedIndex = 1;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(271, 25);
+            this.label5.Location = new System.Drawing.Point(139, 88);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(99, 13);
             this.label5.TabIndex = 9;
@@ -147,18 +148,38 @@
             "Windows-1252",
             "koi8-r",
             "ISO-8859-5"});
-            this.EncodingList.Location = new System.Drawing.Point(273, 43);
+            this.EncodingList.Location = new System.Drawing.Point(146, 106);
             this.EncodingList.Name = "EncodingList";
             this.EncodingList.Size = new System.Drawing.Size(115, 21);
             this.EncodingList.TabIndex = 10;
-            this.EncodingList.SelectedIndex = 1;
             this.EncodingList.SelectedIndexChanged += new System.EventHandler(this.EncodingList_SelectedIndexChanged);
+            // 
+            // OCR_btn
+            // 
+            this.OCR_btn.Location = new System.Drawing.Point(154, 41);
+            this.OCR_btn.Name = "OCR_btn";
+            this.OCR_btn.Size = new System.Drawing.Size(75, 23);
+            this.OCR_btn.TabIndex = 11;
+            this.OCR_btn.Text = "Чик";
+            this.OCR_btn.UseVisualStyleBackColor = true;
+            this.OCR_btn.Click += new System.EventHandler(this.OCR_btn_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(146, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(153, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Попробовать текст с экрана";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(402, 341);
+            this.ClientSize = new System.Drawing.Size(402, 391);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.OCR_btn);
             this.Controls.Add(this.EncodingList);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.SpeedList);
@@ -188,6 +209,8 @@
         private System.Windows.Forms.ComboBox SpeedList;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox EncodingList;
+        private System.Windows.Forms.Button OCR_btn;
+        private System.Windows.Forms.Label label6;
     }
 }
 

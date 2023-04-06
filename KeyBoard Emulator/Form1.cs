@@ -1,23 +1,28 @@
 ﻿using NHotkey;
 using NHotkey.WindowsForms;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Tesseract;
 
 namespace KeyBoard_Emulator
 {
+    
     public partial class Form1 : Form
     {
         private int minTimeType;
         private int maxTimeType;
 
-        private string TextFromTextFile;
+        private Text WritingText = new Text();
 
         public Form1()
         {
             InitializeComponent();
+            this.SpeedList.SelectedIndex = 1;
+            this.EncodingList.SelectedIndex = 1;
             MessageBox.Show("Хоткеи:\nctrl+alt+r - начать эмуляцию набора текста;\nctrl+alt+d - экстренное завершение программы", "Хоткеи");
         }
 
@@ -64,7 +69,7 @@ namespace KeyBoard_Emulator
             try
             {
                 Random random = new Random();
-                foreach (char letter in TextFromTextFile)
+                foreach (char letter in WritingText.TextToWrite)
                 {
                     string keys = "";
                     switch (letter)
@@ -120,8 +125,8 @@ namespace KeyBoard_Emulator
                 MessageBox.Show("Не смог получить файл, попробуй еще раз.", "Чет пошло не так", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            TextFromTextFile = EncodingText(File.ReadAllText(openFileDialog.FileName));
-            richTextBox1.Text = TextFromTextFile;
+            WritingText.TextToWrite =  File.ReadAllText(openFileDialog.FileName);
+            richTextBox1.Text = WritingText.TextToWrite;
             MessageBox.Show("Файл загружен и программа готова к эмуляции.", "Файл загружен");
         }
 
@@ -151,14 +156,62 @@ namespace KeyBoard_Emulator
             }
         }
 
-        private string EncodingText(string TextToEncode) => Encoding.GetEncoding(EncodingList.SelectedItem.ToString()).GetString(Encoding.Default.GetBytes(TextToEncode));
 
         private void EncodingList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(TextFromTextFile))
+            WritingText.Encoding_type = EncodingList.Text;
+        }
+
+        private void OCR_btn_Click(object sender, EventArgs e)
+        {
+            using (OverlayForm overlayForm = new OverlayForm())
             {
-                TextFromTextFile = EncodingText(TextFromTextFile);
+                if (overlayForm.ShowDialog() == DialogResult.OK)
+                {
+                    Rectangle selection = overlayForm.Selection;
+                    using (Bitmap bitmap = new Bitmap(selection.Width, selection.Height))
+                    {
+                        using (Graphics graphics = Graphics.FromImage(bitmap))
+                        {
+                            graphics.CopyFromScreen(selection.Location, Point.Empty, selection.Size);
+                        }
+                        Clipboard.SetImage(bitmap);
+                        TesseractEngine ocr = new TesseractEngine("tessdata", "rus+eng", EngineMode.TesseractAndLstm);
+                        var OCRed_img = ocr.Process(bitmap);
+                        string recognizedText = OCRed_img.GetText();
+                        WritingText.TextToWrite = recognizedText;
+                        richTextBox1.Text = WritingText.TextToWrite;
+                    }
+                }
             }
+            
+        }
+
+    }
+    class Text
+    {
+        private string _TextToWrite;
+        private string _Encoding_type;
+
+        public string TextToWrite
+        {
+            get => _TextToWrite;
+            set { _TextToWrite = EncodingText(value, _Encoding_type); }
+        }
+
+        public string Encoding_type
+        {
+            get => _Encoding_type;
+            set
+            {
+                _Encoding_type = value;
+                _TextToWrite = EncodingText(_TextToWrite, value);
+            }
+        }
+
+        private string EncodingText(string TextToEncode, string Encoding_str)
+        {
+            return TextToEncode != null ? Encoding.GetEncoding(Encoding_str).GetString(Encoding.Default.GetBytes(TextToEncode)) : null;
         }
     }
 }

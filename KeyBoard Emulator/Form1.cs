@@ -10,7 +10,6 @@ using Tesseract;
 
 namespace KeyBoard_Emulator
 {
-    
     public partial class Form1 : Form
     {
         private int minTimeType;
@@ -44,7 +43,7 @@ namespace KeyBoard_Emulator
             e.Handled = true;
             StartEmulation();
         }
-
+        
         private void StartEmulation()
         {
             label1.Text = "Эмуляция: запущена";
@@ -54,9 +53,11 @@ namespace KeyBoard_Emulator
 
         protected override void OnClosed(EventArgs e)
         {
+            this.Hide();
             HotkeyManager.Current.Remove("Start Emulation");
             HotkeyManager.Current.Remove("Stop Emulation");
             MessageBox.Show("Change Da World… My Final Message. Goodbye", "Goodbye");
+            Application.Exit();
         }
 
         private void emergency_exit(object sender, EventArgs e)
@@ -90,6 +91,7 @@ namespace KeyBoard_Emulator
                             keys += letter;
                             keys += '}';
                             break;
+
                         default:
                             keys += letter;
                             break;
@@ -125,7 +127,7 @@ namespace KeyBoard_Emulator
                 MessageBox.Show("Не смог получить файл, попробуй еще раз.", "Чет пошло не так", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            WritingText.TextToWrite =  File.ReadAllText(openFileDialog.FileName);
+            WritingText.TextToWrite = File.ReadAllText(openFileDialog.FileName);
             richTextBox1.Text = WritingText.TextToWrite;
             MessageBox.Show("Файл загружен и программа готова к эмуляции.", "Файл загружен");
         }
@@ -153,9 +155,12 @@ namespace KeyBoard_Emulator
                     minTimeType = 5;
                     maxTimeType = 8;
                     break;
+                case 4:
+                    minTimeType = 0;
+                    maxTimeType = 0;
+                    break;
             }
         }
-
 
         private void EncodingList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -164,6 +169,7 @@ namespace KeyBoard_Emulator
 
         private void OCR_btn_Click(object sender, EventArgs e)
         {
+            this.Hide();
             using (OverlayForm overlayForm = new OverlayForm())
             {
                 if (overlayForm.ShowDialog() == DialogResult.OK)
@@ -175,6 +181,10 @@ namespace KeyBoard_Emulator
                         {
                             graphics.CopyFromScreen(selection.Location, Point.Empty, selection.Size);
                         }
+                        if (bitmap.Width == 0 || bitmap.Height == 0)
+                        {
+                            return;
+                        }
                         Clipboard.SetImage(bitmap);
                         TesseractEngine ocr = new TesseractEngine("tessdata", "rus+eng", EngineMode.TesseractAndLstm);
                         var OCRed_img = ocr.Process(bitmap);
@@ -184,19 +194,19 @@ namespace KeyBoard_Emulator
                     }
                 }
             }
-            
+            this.Show();
         }
-
     }
-    class Text
+
+    internal class Text
     {
         private string _TextToWrite;
         private string _Encoding_type;
 
         public string TextToWrite
         {
-            get => _TextToWrite;
-            set { _TextToWrite = EncodingText(value, _Encoding_type); }
+            get => EncodingText(_TextToWrite, _Encoding_type);
+            set { _TextToWrite = value; }
         }
 
         public string Encoding_type
@@ -205,7 +215,6 @@ namespace KeyBoard_Emulator
             set
             {
                 _Encoding_type = value;
-                _TextToWrite = EncodingText(_TextToWrite, value);
             }
         }
 

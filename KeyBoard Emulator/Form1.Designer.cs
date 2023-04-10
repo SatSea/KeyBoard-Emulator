@@ -122,7 +122,8 @@
             "медленно",
             "средне",
             "быстро",
-            "очень быстро (опасно)"});
+            "очень быстро",
+            "ноль задержки"});
             this.SpeedList.Location = new System.Drawing.Point(15, 106);
             this.SpeedList.Name = "SpeedList";
             this.SpeedList.Size = new System.Drawing.Size(109, 21);

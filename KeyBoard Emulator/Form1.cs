@@ -96,7 +96,7 @@ namespace KeyBoard_Emulator
                             keys += letter;
                             break;
                     }
-                    SendKeys.Send(keys);
+                    SendKeys.SendWait(keys);
                     Thread.Sleep(random.Next(minTimeType, maxTimeType));
                 }
             }

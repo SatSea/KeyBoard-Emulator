@@ -23,6 +23,13 @@ jobs:
       - name: Build the project
         run: msbuild.exe /t:restore /t:build /p:Configuration=Release
 
+      - name: Zip app binaries
+        run: |
+          $sourceDir = "./bin/Release"
+          $destFile = "./bin/Release/app.zip"
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceDir, $destFile)
+
       - name: Create release
         id: create_release
         uses: actions/create-release@v1.0.0

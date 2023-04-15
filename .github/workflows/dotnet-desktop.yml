@@ -26,8 +26,8 @@ jobs:
       - name: Zip app binaries
         run: |
           $sourceDir = "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/Release/"
-          mkdir "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/Release/zip/"
-          $destFile = "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/Release/zip/app.zip"
+          mkdir "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/zip/"
+          $destFile = "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/zip/app.zip"
           Compress-Archive -Path $sourceDir -DestinationPath $destFile -CompressionLevel Optimal
 
       # - name: Create release
@@ -54,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v2.2.0
         with:
           name: app
-          path: D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/Release/zip/
+          path: D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/zip/

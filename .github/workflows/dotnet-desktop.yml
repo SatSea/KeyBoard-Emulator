@@ -23,10 +23,6 @@ jobs:
       - name: Build the project
         run: msbuild.exe /t:restore /t:build /p:Configuration=Release
 
-      - name: Changelog
-        uses: scottbrenner/generate-changelog-action@master
-        id: Changelog
-
       - name: Create release
         id: create_release
         uses: actions/create-release@v1.0.0
@@ -36,9 +32,8 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            ${{ steps.Changelog.outputs.changelog }}
+            Made via GitHub Actions
           draft: false
-          prerelease: false
 
       - name: Upload release assets
         uses: actions/upload-release-asset@v1.0.2

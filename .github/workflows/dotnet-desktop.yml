@@ -26,11 +26,8 @@ jobs:
       - name: Zip app binaries
         run: |
           $sourceDir = "./bin/Release"
-          mkdir ./bin/zip
-          icacls "D:\a\KeyBoard-Emulator\KeyBoard-Emulator\bin" /grant:r ${{ env.USERDOMAIN }}\${{ env.USERNAME }}:(OI)(CI)F
           $destFile = "./bin/zip"
-          Add-Type -AssemblyName System.IO.Compression.FileSystem
-          [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceDir, $destFile)
+          Compress-Archive -Path $sourceDir -DestinationPath $destFile -CompressionLevel Optimal
 
       - name: Create release
         id: create_release

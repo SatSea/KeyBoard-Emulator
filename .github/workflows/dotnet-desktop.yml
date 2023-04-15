@@ -26,7 +26,7 @@ jobs:
       - name: Zip app binaries
         run: |
           $sourceDir = "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/Release/"
-          $destFile = "zip/app.zip"
+          $destFile = "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/Release/zip/app.zip"
           Compress-Archive -Path $sourceDir -DestinationPath $destFile -CompressionLevel Optimal
 
       # - name: Create release

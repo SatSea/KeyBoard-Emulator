@@ -2,7 +2,7 @@
 
 ## License
 
-### This project is licensed under the [MIT license](./LICENSE.txt), except for the files listed below which are licensed under the Apache 2.0 license.
+### This project is licensed under the [MIT license](./LICENSE.txt), except for the files listed below which are licensed under the Apache 2.0 license
 
 ### Files licensed under Apache 2.0
 

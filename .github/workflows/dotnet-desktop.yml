@@ -26,7 +26,7 @@ jobs:
       - name: Zip app binaries
         run: |
           $sourceDir = "./bin/Release"
-          $destFile = "./bin/Release/app.zip"
+          $destFile = "./bin/zip"
           Add-Type -AssemblyName System.IO.Compression.FileSystem
           [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceDir, $destFile)
 
@@ -46,7 +46,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/Release/app.zip
+          asset_path: ./bin/zip/app.zip
           asset_name: app.zip
           asset_content_type: application/zip
 
@@ -54,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v2.2.0
         with:
           name: app
-          path: ./bin/Release/
+          path: ./bin/zip/

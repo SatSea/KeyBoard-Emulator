@@ -31,8 +31,6 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: |
-            Made via GitHub Actions
           draft: false
 
       - name: Upload release assets

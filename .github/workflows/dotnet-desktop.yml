@@ -26,31 +26,31 @@ jobs:
       - name: Zip app binaries
         run: |
           $sourceDir = "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/Release/"
-          $destFile = "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin"
+          $destFile = "app.zip"
           Compress-Archive -Path $sourceDir -DestinationPath $destFile -CompressionLevel Optimal
 
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
+      # - name: Create release
+      #   id: create_release
+      #   uses: actions/create-release@v1.0.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: Release ${{ github.ref }}
+      #     draft: false
 
-      - name: Upload release assets
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/zip/app.zip
-          asset_name: app.zip
-          asset_content_type: application/zip
+      # - name: Upload release assets
+      #   uses: actions/upload-release-asset@v1.0.2
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./bin/zip/app.zip
+      #     asset_name: app.zip
+      #     asset_content_type: application/zip
 
       - name: Publish artifacts
         uses: actions/upload-artifact@v2.2.0
         with:
           name: app
-          path: ./bin/zip/
+          path: D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/Release/app.zip

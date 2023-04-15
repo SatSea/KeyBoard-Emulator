@@ -9,6 +9,6 @@
 - [eng.traineddata](./KeyBoard%20Emulator/tessdata/eng.traineddata)
 - [rus.traineddata](./KeyBoard%20Emulator/tessdata/rus.traineddata)
 
-### You can view this license in [LICENSE_tessdata.txt](./KeyBoard%20Emulator/tessdata/LICENSE_tessdata.txt) or you can go to [the tessdata repository](https://github.com/tesseract-ocr/tessdata)
+### You can view Apache 2.0 license in [LICENSE_tessdata.txt](./KeyBoard%20Emulator/tessdata/LICENSE_tessdata.txt) or you can go to [the tessdata repository](https://github.com/tesseract-ocr/tessdata)
 
 ### If you have any questions or concerns about licensing, please contact me

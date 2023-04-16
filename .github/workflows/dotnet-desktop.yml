@@ -23,12 +23,12 @@ jobs:
       - name: Build the project
         run: msbuild.exe /t:restore /t:build /p:Configuration=Release
 
-      - name: Zip app binaries
-        run: |
-          $sourceDir = "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/Release/"
-          mkdir "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/zip/"
-          $destFile = "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/zip/app.zip"
-          Compress-Archive -Path $sourceDir -DestinationPath $destFile -CompressionLevel Optimal
+      # - name: Zip app binaries
+      #   run: |
+      #     $sourceDir = "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/Release/"
+      #     mkdir "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/zip/"
+      #     $destFile = "D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/zip/app.zip"
+      #     Compress-Archive -Path $sourceDir -DestinationPath $destFile -CompressionLevel Optimal
 
       # - name: Create release
       #   id: create_release
@@ -53,5 +53,5 @@ jobs:
       - name: Publish artifacts
         uses: actions/upload-artifact@v2.2.0
         with:
-          name: app
-          path: D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/zip/
+          name: Release
+          path: D:/a/KeyBoard-Emulator/KeyBoard-Emulator/KeyBoard Emulator/bin/Release/

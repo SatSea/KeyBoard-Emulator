@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.TextBox_ForTextPreview = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.loadTextFromFile = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,6 +42,8 @@
             this.EncodingList = new System.Windows.Forms.ComboBox();
             this.OCR_btn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.LstmOnly = new System.Windows.Forms.CheckBox();
+            this.toolTip_Lstm = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // button1
@@ -54,17 +57,16 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.EmulateButton_Click);
             // 
-            // richTextBox1
+            // TextBox_ForTextPreview
             // 
-            this.richTextBox1.DetectUrls = false;
-            this.richTextBox1.EnableAutoDragDrop = true;
-            this.richTextBox1.Location = new System.Drawing.Point(12, 162);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox1.Size = new System.Drawing.Size(378, 143);
-            this.richTextBox1.TabIndex = 2;
-            this.richTextBox1.Text = "";
+            this.TextBox_ForTextPreview.DetectUrls = false;
+            this.TextBox_ForTextPreview.Location = new System.Drawing.Point(12, 162);
+            this.TextBox_ForTextPreview.Name = "TextBox_ForTextPreview";
+            this.TextBox_ForTextPreview.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.TextBox_ForTextPreview.Size = new System.Drawing.Size(378, 143);
+            this.TextBox_ForTextPreview.TabIndex = 2;
+            this.TextBox_ForTextPreview.Text = "";
+            this.TextBox_ForTextPreview.TextChanged += new System.EventHandler(this.TextBox_ForTextPreview_TextChanged);
             // 
             // label2
             // 
@@ -174,11 +176,25 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "Попробовать текст с экрана";
             // 
+            // LstmOnly
+            // 
+            this.LstmOnly.AutoSize = true;
+            this.LstmOnly.Checked = true;
+            this.LstmOnly.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.LstmOnly.Location = new System.Drawing.Point(308, 45);
+            this.LstmOnly.Name = "LstmOnly";
+            this.LstmOnly.Size = new System.Drawing.Size(69, 17);
+            this.LstmOnly.TabIndex = 13;
+            this.LstmOnly.Tag = "";
+            this.LstmOnly.Text = "LstmOnly";
+            this.LstmOnly.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(402, 391);
+            this.Controls.Add(this.LstmOnly);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.OCR_btn);
             this.Controls.Add(this.EncodingList);
@@ -189,8 +205,9 @@
             this.Controls.Add(this.loadTextFromFile);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.TextBox_ForTextPreview);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Bzdoom keyboard";
@@ -201,7 +218,7 @@
 
         #endregion
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox TextBox_ForTextPreview;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button loadTextFromFile;
         private System.Windows.Forms.Label label3;
@@ -212,6 +229,8 @@
         private System.Windows.Forms.ComboBox EncodingList;
         private System.Windows.Forms.Button OCR_btn;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox LstmOnly;
+        private System.Windows.Forms.ToolTip toolTip_Lstm;
     }
 }
 

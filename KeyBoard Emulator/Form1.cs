@@ -20,14 +20,15 @@ namespace KeyBoard_Emulator
         public Form1()
         {
             InitializeComponent();
-            this.SpeedList.SelectedIndex = 1;
-            this.EncodingList.SelectedIndex = 1;
+            SpeedList.SelectedIndex = 1;
+            EncodingList.SelectedIndex = 1;
+            toolTip_Lstm.SetToolTip(LstmOnly, "Lstm обработка занимает больше времени на обработку изображения точнее\nраспознавая текст на Английском, но иногда теряет знаки препинания");
             MessageBox.Show("Хоткеи:\nctrl+alt+r - начать эмуляцию набора текста;\nctrl+alt+d - экстренное завершение программы", "Хоткеи");
         }
 
         private void EmulateButton_Click(object sender, EventArgs e)
         {
-            if (richTextBox1.Text.Length == 0)
+            if (TextBox_ForTextPreview.Text.Length == 0)
             {
                 MessageBox.Show("Нет текста для эмуляции", "Нет текста", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -103,7 +104,7 @@ namespace KeyBoard_Emulator
             catch
             {
                 label1.Text = "Эмуляция: завершена с ошибкой";
-                MessageBox.Show("Прозошла ошибка и текст был проэмулирован неполностью или не проэмулирован вовсе.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Произошла ошибка и текст был проэмулирован не полностью или не проэмулирован вовсе.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
             finally
@@ -128,7 +129,7 @@ namespace KeyBoard_Emulator
                 return;
             }
             WritingText.TextToWrite = File.ReadAllText(openFileDialog.FileName);
-            richTextBox1.Text = WritingText.TextToWrite;
+            TextBox_ForTextPreview.Text = WritingText.TextToWrite;
             MessageBox.Show("Файл загружен и программа готова к эмуляции.", "Файл загружен");
         }
 
@@ -156,8 +157,8 @@ namespace KeyBoard_Emulator
                     maxTimeType = 8;
                     break;
                 case 4:
-                    minTimeType = 0;
-                    maxTimeType = 0;
+                    minTimeType = 1;
+                    maxTimeType = 1;
                     break;
             }
         }
@@ -186,15 +187,19 @@ namespace KeyBoard_Emulator
                             return;
                         }
                         Clipboard.SetImage(bitmap);
-                        TesseractEngine ocr = new TesseractEngine("tessdata", "rus+eng", EngineMode.TesseractAndLstm);
+                        TesseractEngine ocr = new TesseractEngine("tessdata", "rus+eng", LstmOnly.Checked ? EngineMode.LstmOnly : EngineMode.TesseractAndLstm);
                         var OCRed_img = ocr.Process(bitmap);
                         string recognizedText = OCRed_img.GetText();
-                        WritingText.TextToWrite = recognizedText;
-                        richTextBox1.Text = WritingText.TextToWrite;
+                        TextBox_ForTextPreview.Text = recognizedText;
                     }
                 }
             }
             this.Show();
+        }
+
+        private void TextBox_ForTextPreview_TextChanged(object sender, EventArgs e)
+        {
+            WritingText.TextToWrite = TextBox_ForTextPreview.Text;
         }
     }
 

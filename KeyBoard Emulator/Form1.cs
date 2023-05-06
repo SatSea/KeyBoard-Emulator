@@ -3,11 +3,9 @@ using NHotkey.WindowsForms;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Input;
 using Tesseract;
 
 namespace KeyBoard_Emulator
@@ -18,7 +16,7 @@ namespace KeyBoard_Emulator
         private int maxTimeType;
 
         private Text WritingText = new Text();
-        Random random = new Random();
+        private Random random = new Random();
 
         public Form1()
         {
@@ -47,7 +45,7 @@ namespace KeyBoard_Emulator
             e.Handled = true;
             StartEmulation();
         }
-        
+
         private void StartEmulation()
         {
             label1.Text = "Эмуляция: запущена";
@@ -68,6 +66,7 @@ namespace KeyBoard_Emulator
         {
             Environment.Exit(0);
         }
+
         private string escapeSpecialCharacters()
         {
             string escapedText = "";
@@ -89,6 +88,7 @@ namespace KeyBoard_Emulator
                     case '}':
                         escapedText += '{' + letter + '}';
                         break;
+
                     default:
                         escapedText += letter;
                         break;
@@ -96,14 +96,15 @@ namespace KeyBoard_Emulator
             }
             return escapedText;
         }
+
         private void Emulation()
         {
-            //try
-            //{
+            try
+            {
                 string escaped_text = escapeSpecialCharacters();
                 if (letter_by_letterRB.Checked)
                 {
-                    letter_by_letter_emulation(escaped_text); 
+                    letter_by_letter_emulation(escaped_text);
                 }
                 else
                 {
@@ -116,18 +117,18 @@ namespace KeyBoard_Emulator
                         all_text_emulation(escaped_text);
                     }
                 }
-            //}
-            //catch
-            //{
-            //    label1.Text = "Эмуляция: завершена с ошибкой";
-             //   MessageBox.Show("Произошла ошибка и текст был проэмулирован не полностью или не проэмулирован вовсе.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-             //   Application.Exit();
-            //}
-            //finally
-            //{
+            }
+            catch
+            {
+                label1.Text = "Эмуляция: завершена с ошибкой";
+                MessageBox.Show("Произошла ошибка и текст был проэмулирован не полностью или не проэмулирован вовсе.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+            finally
+            {
                 label1.Text = "Эмуляция: завершена";
                 MessageBox.Show("Текст проэмулирован.", "Эмуляция завершена");
-            //}
+            }
         }
 
         private void all_text_emulation(string words)
@@ -196,6 +197,7 @@ namespace KeyBoard_Emulator
                     minTimeType = 5;
                     maxTimeType = 8;
                     break;
+
                 case 4:
                     minTimeType = 1;
                     maxTimeType = 1;

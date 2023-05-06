@@ -44,12 +44,16 @@
             this.label6 = new System.Windows.Forms.Label();
             this.LstmOnly = new System.Windows.Forms.CheckBox();
             this.toolTip_Lstm = new System.Windows.Forms.ToolTip(this.components);
+            this.letter_by_letterRB = new System.Windows.Forms.RadioButton();
+            this.word_by_wordRB = new System.Windows.Forms.RadioButton();
+            this.alltextRB = new System.Windows.Forms.RadioButton();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.button1.Location = new System.Drawing.Point(125, 322);
+            this.button1.Location = new System.Drawing.Point(147, 322);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(152, 23);
             this.button1.TabIndex = 1;
@@ -63,7 +67,7 @@
             this.TextBox_ForTextPreview.Location = new System.Drawing.Point(12, 162);
             this.TextBox_ForTextPreview.Name = "TextBox_ForTextPreview";
             this.TextBox_ForTextPreview.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.TextBox_ForTextPreview.Size = new System.Drawing.Size(378, 143);
+            this.TextBox_ForTextPreview.Size = new System.Drawing.Size(423, 143);
             this.TextBox_ForTextPreview.TabIndex = 2;
             this.TextBox_ForTextPreview.Text = "";
             this.TextBox_ForTextPreview.TextChanged += new System.EventHandler(this.TextBox_ForTextPreview_TextChanged);
@@ -110,7 +114,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 88);
+            this.label4.Location = new System.Drawing.Point(176, 83);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 13);
             this.label4.TabIndex = 7;
@@ -126,7 +130,7 @@
             "быстро",
             "очень быстро",
             "ноль задержки"});
-            this.SpeedList.Location = new System.Drawing.Point(15, 106);
+            this.SpeedList.Location = new System.Drawing.Point(185, 101);
             this.SpeedList.Name = "SpeedList";
             this.SpeedList.Size = new System.Drawing.Size(109, 21);
             this.SpeedList.TabIndex = 8;
@@ -135,7 +139,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(139, 88);
+            this.label5.Location = new System.Drawing.Point(309, 83);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(99, 13);
             this.label5.TabIndex = 9;
@@ -151,7 +155,7 @@
             "Windows-1252",
             "koi8-r",
             "ISO-8859-5"});
-            this.EncodingList.Location = new System.Drawing.Point(146, 106);
+            this.EncodingList.Location = new System.Drawing.Point(316, 101);
             this.EncodingList.Name = "EncodingList";
             this.EncodingList.Size = new System.Drawing.Size(115, 21);
             this.EncodingList.TabIndex = 10;
@@ -181,7 +185,7 @@
             this.LstmOnly.AutoSize = true;
             this.LstmOnly.Checked = true;
             this.LstmOnly.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.LstmOnly.Location = new System.Drawing.Point(308, 45);
+            this.LstmOnly.Location = new System.Drawing.Point(312, 45);
             this.LstmOnly.Name = "LstmOnly";
             this.LstmOnly.Size = new System.Drawing.Size(69, 17);
             this.LstmOnly.TabIndex = 13;
@@ -189,11 +193,56 @@
             this.LstmOnly.Text = "LstmOnly";
             this.LstmOnly.UseVisualStyleBackColor = true;
             // 
+            // letter_by_letterRB
+            // 
+            this.letter_by_letterRB.AutoSize = true;
+            this.letter_by_letterRB.Checked = true;
+            this.letter_by_letterRB.Location = new System.Drawing.Point(93, 79);
+            this.letter_by_letterRB.Name = "letter_by_letterRB";
+            this.letter_by_letterRB.Size = new System.Drawing.Size(71, 17);
+            this.letter_by_letterRB.TabIndex = 14;
+            this.letter_by_letterRB.TabStop = true;
+            this.letter_by_letterRB.Text = "По букве";
+            this.letter_by_letterRB.UseVisualStyleBackColor = true;
+            // 
+            // word_by_wordRB
+            // 
+            this.word_by_wordRB.AutoSize = true;
+            this.word_by_wordRB.Location = new System.Drawing.Point(93, 102);
+            this.word_by_wordRB.Name = "word_by_wordRB";
+            this.word_by_wordRB.Size = new System.Drawing.Size(71, 17);
+            this.word_by_wordRB.TabIndex = 15;
+            this.word_by_wordRB.Text = "По слову";
+            this.word_by_wordRB.UseVisualStyleBackColor = true;
+            // 
+            // alltextRB
+            // 
+            this.alltextRB.AutoSize = true;
+            this.alltextRB.Location = new System.Drawing.Point(93, 125);
+            this.alltextRB.Name = "alltextRB";
+            this.alltextRB.Size = new System.Drawing.Size(81, 17);
+            this.alltextRB.TabIndex = 16;
+            this.alltextRB.Text = "Весь текст";
+            this.alltextRB.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.Location = new System.Drawing.Point(6, 90);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(81, 41);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Количество текста за такт эмуляции";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(402, 391);
+            this.ClientSize = new System.Drawing.Size(443, 391);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.alltextRB);
+            this.Controls.Add(this.word_by_wordRB);
+            this.Controls.Add(this.letter_by_letterRB);
             this.Controls.Add(this.LstmOnly);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.OCR_btn);
@@ -210,7 +259,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Bzdoom keyboard";
+            this.Text = "Doomer meh";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,6 +280,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox LstmOnly;
         private System.Windows.Forms.ToolTip toolTip_Lstm;
+        private System.Windows.Forms.RadioButton letter_by_letterRB;
+        private System.Windows.Forms.RadioButton word_by_wordRB;
+        private System.Windows.Forms.RadioButton alltextRB;
+        private System.Windows.Forms.Label label7;
     }
 }
 

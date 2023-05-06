@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyBoard Emulator", "KeyBoard Emulator\KeyBoard Emulator.csproj", "{DDE208FC-9CD7-4EF9-A755-F7D86B44B8D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotalyNotKeyBoardEmulator", "KeyBoard Emulator\TotalyNotKeyBoardEmulator.csproj", "{DDE208FC-9CD7-4EF9-A755-F7D86B44B8D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

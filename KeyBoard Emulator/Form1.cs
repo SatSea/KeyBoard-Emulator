@@ -3,9 +3,11 @@ using NHotkey.WindowsForms;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Input;
 using Tesseract;
 
 namespace KeyBoard_Emulator
@@ -16,6 +18,7 @@ namespace KeyBoard_Emulator
         private int maxTimeType;
 
         private Text WritingText = new Text();
+        Random random = new Random();
 
         public Form1()
         {
@@ -65,52 +68,89 @@ namespace KeyBoard_Emulator
         {
             Environment.Exit(0);
         }
-
-        private void Emulation()
+        private string escapeSpecialCharacters()
         {
-            try
+            string escapedText = "";
+            foreach (char letter in WritingText.TextToWrite)
             {
-                Random random = new Random();
-                foreach (char letter in WritingText.TextToWrite)
+                switch (letter)
                 {
-                    string keys = "";
-                    switch (letter)
-                    {
-                        case '\r':
-                            break; // Нам не нужен возрат коретки
-                        case '+':
-                        case '^':
-                        case '%':
-                        case '~':
-                        case '(':
-                        case ')':
-                        case '[':
-                        case ']':
-                        case '{':
-                        case '}':
-                            keys += '{';
-                            keys += letter;
-                            keys += '}';
-                            break;
-
-                        default:
-                            keys += letter;
-                            break;
-                    }
-                    SendKeys.SendWait(keys);
-                    Thread.Sleep(random.Next(minTimeType, maxTimeType));
+                    case '\r':
+                        break; // Нам не нужен возрат коретки
+                    case '+':
+                    case '^':
+                    case '%':
+                    case '~':
+                    case '(':
+                    case ')':
+                    case '[':
+                    case ']':
+                    case '{':
+                    case '}':
+                        escapedText += '{' + letter + '}';
+                        break;
+                    default:
+                        escapedText += letter;
+                        break;
                 }
             }
-            catch
-            {
-                label1.Text = "Эмуляция: завершена с ошибкой";
-                MessageBox.Show("Произошла ошибка и текст был проэмулирован не полностью или не проэмулирован вовсе.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
-            }
-            finally
-            {
+            return escapedText;
+        }
+        private void Emulation()
+        {
+            //try
+            //{
+                string escaped_text = escapeSpecialCharacters();
+                if (letter_by_letterRB.Checked)
+                {
+                    letter_by_letter_emulation(escaped_text); 
+                }
+                else
+                {
+                    if (word_by_wordRB.Checked)
+                    {
+                        word_by_word_emulation(escaped_text);
+                    }
+                    else
+                    {
+                        all_text_emulation(escaped_text);
+                    }
+                }
+            //}
+            //catch
+            //{
+            //    label1.Text = "Эмуляция: завершена с ошибкой";
+             //   MessageBox.Show("Произошла ошибка и текст был проэмулирован не полностью или не проэмулирован вовсе.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+             //   Application.Exit();
+            //}
+            //finally
+            //{
                 label1.Text = "Эмуляция: завершена";
                 MessageBox.Show("Текст проэмулирован.", "Эмуляция завершена");
+            //}
+        }
+
+        private void all_text_emulation(string words)
+        {
+            SendKeys.SendWait(words);
+        }
+
+        private void word_by_word_emulation(string words)
+        {
+            foreach (string word in words.Split(' '))
+            {
+                string word_with_space = word + ' ';
+                SendKeys.SendWait(word_with_space);
+                Thread.Sleep(random.Next(minTimeType, maxTimeType));
+            }
+        }
+
+        private void letter_by_letter_emulation(string words)
+        {
+            foreach (char letter in words)
+            {
+                SendKeys.SendWait(letter.ToString());
+                Thread.Sleep(random.Next(minTimeType, maxTimeType));
             }
         }
 

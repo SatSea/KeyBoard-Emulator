@@ -179,23 +179,23 @@ namespace KeyBoard_Emulator
             switch (SpeedList.SelectedIndex)
             {
                 case 0:
-                    minTimeType = 31;
-                    maxTimeType = 38;
+                    minTimeType = 96;
+                    maxTimeType = 145;
                     break;
 
                 case 1:
-                    minTimeType = 19;
-                    maxTimeType = 24;
+                    minTimeType = 65;
+                    maxTimeType = 89;
                     break;
 
                 case 2:
-                    minTimeType = 10;
-                    maxTimeType = 14;
+                    minTimeType = 33;
+                    maxTimeType = 52;
                     break;
 
                 case 3:
-                    minTimeType = 5;
-                    maxTimeType = 8;
+                    minTimeType = 23;
+                    maxTimeType = 32;
                     break;
 
                 case 4:
